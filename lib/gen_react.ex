@@ -1,18 +1,11 @@
 defmodule GenReact do
-  @moduledoc """
-  Documentation for `GenReact`.
-  """
+  use Application
 
-  @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> GenReact.hello()
-      :world
-
-  """
-  def hello do
-    :world
+  def start do
+    Supervisor.start_link(
+      [GenReact.Registry],
+      strategy: :one_for_one,
+      name: __MODULE__
+    )
   end
 end
