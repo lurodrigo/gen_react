@@ -1,4 +1,5 @@
 %{
   "elixir_uuid": {:hex, :elixir_uuid, "1.2.1", "dce506597acb7e6b0daeaff52ff6a9043f5919a4c3315abb4143f0b00378c097", [:mix], [], "hexpm", "f7eba2ea6c3555cea09706492716b0d87397b88946e6380898c2889d68585752"},
   "gen_stage": {:hex, :gen_stage, "1.1.0", "dd0c0f8d2f3b993fdbd3d58e94abbe65380f4e78bdee3fa93d5618d7d14abe60", [:mix], [], "hexpm", "7f2b36a6d02f7ef2ba410733b540ec423af65ec9c99f3d1083da508aca3b9305"},
+  "pathex": {:hex, :pathex, "1.2.0", "735dd6f5ebc56c3f72d0f33839271975de3bedf2e66bc5282f11101bed050c0a", [:mix], [], "hexpm", "2bbbd09be933b5146acaa43b633ffa9c3f318fd09df0a104e73b695f443aac9c"},
 }
