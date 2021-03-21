@@ -3,7 +3,7 @@ defmodule GenReact.Value do
   import GenReact.Common
   require Logger
 
-  def start_link(initial_value, opts \\ []) do
+  def start_link({initial_value, opts}) do
     id = Keyword.get(opts, :id, nil) || new_id()
     {:ok, _} = GenServer.start_link(__MODULE__, {id, initial_value}, name: build_name(id))
     {:ok, id}
@@ -42,5 +42,10 @@ defmodule GenReact.Value do
 
     dispatch(id, value, new_value)
     {:noreply, {id, new_value}, :hibernate}
+  end
+
+  def handle_cast({:send_value, to}, {id, value}) do
+    GenServer.cast(build_name(to), {:subscription_update, id, value})
+    {:noreply, {id, value}}
   end
 end

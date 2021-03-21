@@ -1,21 +1,18 @@
 # GenReact
 
-Data-flow like reactive programming over GenStage.
+Data-flow like reactive programming in Elixir.
 
-## Installation
+## Examples
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `gen_react` to your list of dependencies in `mix.exs`:
+```elixir 
+import GenReact
+{:ok, a} = value(1)
+{:ok, b} = value(2)
+{:ok, c} = view([a: a, b: b], fn %{a: a, b: b} -> 10*a + b end)
+{:ok, d} = view(c, fn c -> c + 1 end)
 
-```elixir
-def deps do
-  [
-    {:gen_react, "~> 0.1.0"}
-  ]
-end
+{get(c), get(d)} # {12, 13}
+set(a, 5)
+set(b, 3)
+{get(c), get(d)} # {53, 54}
 ```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/gen_react](https://hexdocs.pm/gen_react).
-

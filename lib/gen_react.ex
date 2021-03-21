@@ -2,6 +2,7 @@ defmodule GenReact do
   use Application
   import GenReact.Common
   alias GenReact.{Value, View}
+  require Logger
 
   @subscription_tb :gen_react_subscriptions
 
@@ -15,20 +16,19 @@ defmodule GenReact do
     :ets.delete(@subscription_tb)
   end
 
-  def subscribe(subscriber, [{:to, id} | _opts]) do
-    :ets.insert(@subscription_tb, {id, subscriber})
-  end
-
-  def unsubscribe(subscriber, to: id) do
-    :ets.delete_object(@subscription_tb, {id, subscriber})
-  end
-
   def value(initial_value, opts \\ []) do
-    Value.start_link(initial_value, opts)
+    Value.start_link({initial_value, opts})
   end
 
-  def view(f, opts \\ []) do
-    View.start_link(f, opts)
+  def view(up, f, opts \\ [])
+
+  def view(up, f, opts) when is_list(up) do
+    View.start_link({f, up, opts})
+  end
+
+  def view(up, f, opts) do
+    new_f = fn map_value -> f.(Map.get(map_value, up)) end
+    View.start_link({new_f, [up], opts})
   end
 
   def get(id, f \\ & &1, timeout \\ 5000) do
